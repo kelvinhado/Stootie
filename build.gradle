@@ -21,3 +21,10 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    // App dependencies
+    supportLibraryVersion = '26+'
+    guavaVersion = '20.0'
+    butterknifeVersion = '8.8.1'
+}
