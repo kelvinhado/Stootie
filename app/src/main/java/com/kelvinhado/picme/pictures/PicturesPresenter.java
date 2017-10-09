@@ -1,6 +1,10 @@
 package com.kelvinhado.picme.pictures;
 
+import android.support.annotation.NonNull;
+
 import com.kelvinhado.picme.BasePresenter;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Created by kelvin on 09/10/2017.
@@ -8,7 +12,11 @@ import com.kelvinhado.picme.BasePresenter;
 
 public class PicturesPresenter implements BasePresenter, PicturesContract.Presenter {
 
-    public PicturesPresenter() {
+    private final PicturesContract.View mPicturesView;
+
+    public PicturesPresenter(@NonNull PicturesContract.View picturesView) {
+        mPicturesView = checkNotNull(picturesView, "PicturesView cannot be null");
+        mPicturesView.setPresenter(this);
     }
 
     @Override

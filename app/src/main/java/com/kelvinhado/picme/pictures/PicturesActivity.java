@@ -8,19 +8,24 @@ import com.kelvinhado.picme.utils.ActivityUtils;
 
 public class PicturesActivity extends AppCompatActivity {
 
+    private PicturesPresenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictures);
 
-        PicturesFragment tasksFragment =
+        PicturesFragment picturesFragment =
                 (PicturesFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
-        if (tasksFragment == null) {
+        if (picturesFragment == null) {
             // Create the fragment
-            tasksFragment = PicturesFragment.newInstance();
+            picturesFragment = PicturesFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(), tasksFragment, R.id.content_frame);
+                    getSupportFragmentManager(), picturesFragment, R.id.content_frame);
         }
+
+        // add presenter
+        mPresenter = new PicturesPresenter(picturesFragment);
     }
 
     @Override
