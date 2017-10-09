@@ -24,7 +24,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by kelvin on 09/10/2017.
  */
 
-public class PicturesFragment extends Fragment implements PicturesContract.View {
+public class PicturesFragment extends Fragment implements PicturesContract.View, PicturesAdapter.ListItemClickListener {
 
     /**
      * Mvp presenter
@@ -62,7 +62,7 @@ public class PicturesFragment extends Fragment implements PicturesContract.View 
         View mRootView = inflater.inflate(R.layout.fragment_pictures, container, false);
         ButterKnife.bind(this, mRootView);
 
-        mAdapter = new PicturesAdapter(mPictureList);
+        mAdapter = new PicturesAdapter(mPictureList, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -93,6 +93,11 @@ public class PicturesFragment extends Fragment implements PicturesContract.View 
 
     @Override
     public void showLoadingPictureError() {
+
+    }
+
+    @Override
+    public void onListItemClicked(int itemPosition) {
 
     }
 }
