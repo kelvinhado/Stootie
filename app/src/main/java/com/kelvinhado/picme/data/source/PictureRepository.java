@@ -112,7 +112,7 @@ public class PictureRepository implements PictureDataSource {
                 mCacheIsDirty = false;
                 refreshCache(pictures);
                 callback.onPicturesLoaded(getCachedPictures());
-                //TODO implements saving pictures to local db
+                refreshLocalStorage(pictures);
             }
 
             @Override
@@ -135,6 +135,17 @@ public class PictureRepository implements PictureDataSource {
             mCache.put(picture.getId(), picture);
         }
         mCacheIsDirty = false;
+    }
+
+    /**
+     * Refresh the local storage
+     * @param pictures list of pictures that needs to be saved in local storage
+     */
+    private void refreshLocalStorage(List<Picture> pictures) {
+        mLocalDataSource.deleteAllPictures();
+        for(Picture picture : pictures) {
+            mLocalDataSource.savePicture(picture);
+        }
     }
 
     /**
