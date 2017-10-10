@@ -29,12 +29,8 @@ public interface PicturesContract {
         /**
          * Shows alert in case no pictures are found
          */
-        void showNoPicture();
+        void showLoadingPicturesFailed();
 
-        /**
-         * Shows that an error occured while loading data
-         */
-        void showLoadingPictureError();
     }
 
     interface Presenter extends BasePresenter {
