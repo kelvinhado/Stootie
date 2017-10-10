@@ -147,4 +147,10 @@ public class PictureLocalDataSource implements PictureDataSource {
         }.execute();
 
     }
+
+    @Override
+    public void refreshData() {
+        // Not required because the {@link PictureRepository} handles the logic of refreshing the
+        // pictures from all the available data sources.
+    }
 }

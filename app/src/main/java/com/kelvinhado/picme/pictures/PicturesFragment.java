@@ -3,11 +3,13 @@ package com.kelvinhado.picme.pictures;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.kelvinhado.picme.R;
 import com.kelvinhado.picme.data.source.Picture;
@@ -25,7 +27,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 
 public class PicturesFragment extends Fragment implements PicturesContract.View,
-        PicturesAdapter.ListItemClickListener {
+        PicturesAdapter.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     /**
      * Mvp presenter
@@ -39,6 +41,8 @@ public class PicturesFragment extends Fragment implements PicturesContract.View,
 
     @BindView(R.id.rv_pictures)
     RecyclerView mRecyclerView;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private PicturesAdapter mAdapter;
 
@@ -68,7 +72,8 @@ public class PicturesFragment extends Fragment implements PicturesContract.View,
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-        mPresenter.loadPictures(false);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mPresenter.start();
         return mRootView;
     }
 
@@ -79,26 +84,34 @@ public class PicturesFragment extends Fragment implements PicturesContract.View,
 
     @Override
     public void setLoadingIndicator(boolean active) {
-
+        if(active && !mSwipeRefreshLayout.isRefreshing()) {
+            mSwipeRefreshLayout.setRefreshing(true);
+        } else {
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
     }
 
     @Override
     public void showPictures(List<Picture> pictures) {
         mAdapter.swap(pictures);
+        mPictureList = pictures;
     }
 
     @Override
-    public void showNoPicture() {
-
-    }
-
-    @Override
-    public void showLoadingPictureError() {
-
+    public void showLoadingPicturesFailed() {
+        Toast.makeText(getContext(), "unable to load data..", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onListItemClicked(int itemPosition) {
 
+    }
+
+    /**
+     * Methods called when the user swipe to update the content.
+     */
+    @Override
+    public void onRefresh() {
+        mPresenter.loadPictures(true);
     }
 }

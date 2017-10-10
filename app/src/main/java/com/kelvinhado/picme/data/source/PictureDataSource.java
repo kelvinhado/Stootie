@@ -27,6 +27,11 @@ public interface PictureDataSource {
      */
     void savePicture(@NonNull Picture picture);
 
+    /**
+     * Methods called to indicate that data should be updated
+     */
+    void refreshData();
+
     interface LoadPicturesCallback {
 
         void onPicturesLoaded(@NonNull List<Picture> pictures);

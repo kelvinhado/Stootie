@@ -21,28 +21,45 @@ public class PicturesPresenter implements BasePresenter, PicturesContract.Presen
 
     private final PictureRepository mRepository;
 
-    public PicturesPresenter(@NonNull PictureRepository repository, @NonNull PicturesContract.View picturesView) {
+    public PicturesPresenter(@NonNull PictureRepository repository,
+                             @NonNull PicturesContract.View picturesView) {
         mPicturesView = checkNotNull(picturesView, "PicturesView cannot be null");
         mPicturesView.setPresenter(this);
         mRepository = repository;
     }
 
+    /**
+     * Method called when the view is initialized
+     */
     @Override
     public void start() {
-
+        loadPictures(false);
     }
 
+    /**
+     * Loads pictures from data source.
+     *
+     * @param forceUpdate true to clear cache
+     */
     @Override
     public void loadPictures(boolean forceUpdate) {
+        mPicturesView.setLoadingIndicator(true);
+        // if a data update is required.
+        if (forceUpdate) {
+            mRepository.refreshData();
+        }
+        // get pictures from the data source.
         mRepository.getPictures(new PictureDataSource.LoadPicturesCallback() {
             @Override
             public void onPicturesLoaded(@NonNull List<Picture> pictures) {
                 mPicturesView.showPictures(pictures);
+                mPicturesView.setLoadingIndicator(false);
             }
 
             @Override
             public void onDataNotAvailable() {
-                mPicturesView.showNoPicture();
+                mPicturesView.showLoadingPicturesFailed();
+                mPicturesView.setLoadingIndicator(false);
             }
         });
     }

@@ -175,4 +175,10 @@ public class PictureRepository implements PictureDataSource {
         mRemoteDataSource.savePicture(picture);
         mLocalDataSource.savePicture(picture);
     }
+
+    @Override
+    public void refreshData() {
+        mCacheIsDirty = true;
+
+    }
 }

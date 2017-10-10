@@ -82,4 +82,10 @@ public class PictureRemoteDataSource implements PictureDataSource {
     public void savePicture(@NonNull Picture picture) {
 
     }
+
+    @Override
+    public void refreshData() {
+        // Not required because the {@link PictureRepository} handles the logic of refreshing the
+        // pictures from all the available data sources.
+    }
 }
