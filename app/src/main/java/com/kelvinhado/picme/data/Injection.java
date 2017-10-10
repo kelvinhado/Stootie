@@ -19,6 +19,6 @@ public class Injection {
         checkNotNull(context);
         return PictureRepository.getInstance(
                 PictureRemoteDataSource.getInstance(),
-                PictureLocalDataSource.getInstance());
+                PictureLocalDataSource.getInstance(context));
     }
 }
