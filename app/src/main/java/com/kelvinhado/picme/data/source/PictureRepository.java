@@ -58,8 +58,8 @@ public class PictureRepository implements PictureDataSource {
      * @param localDataSource  the device storage data source
      * @return the {@link PictureRepository} instance
      */
-    public PictureRepository getsInstance(PictureDataSource remoteDataSource,
-                                          PictureDataSource localDataSource) {
+    public static PictureRepository getInstance(PictureDataSource remoteDataSource,
+                                         PictureDataSource localDataSource) {
         if (sInstance == null) {
             sInstance = new PictureRepository(remoteDataSource, localDataSource);
         }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kelvinhado.picme.R;
+import com.kelvinhado.picme.data.Injection;
 import com.kelvinhado.picme.utils.ActivityUtils;
 
 public class PicturesActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class PicturesActivity extends AppCompatActivity {
         }
 
         // add presenter
-        mPresenter = new PicturesPresenter(picturesFragment);
+        mPresenter = new PicturesPresenter(Injection.providePicturesRepository(this), picturesFragment);
     }
 
     @Override

@@ -4,8 +4,10 @@ import android.support.annotation.NonNull;
 
 import com.kelvinhado.picme.BasePresenter;
 import com.kelvinhado.picme.data.source.Picture;
+import com.kelvinhado.picme.data.source.PictureDataSource;
+import com.kelvinhado.picme.data.source.PictureRepository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -17,9 +19,12 @@ public class PicturesPresenter implements BasePresenter, PicturesContract.Presen
 
     private final PicturesContract.View mPicturesView;
 
-    public PicturesPresenter(@NonNull PicturesContract.View picturesView) {
+    private final PictureRepository mRepository;
+
+    public PicturesPresenter(@NonNull PictureRepository repository, @NonNull PicturesContract.View picturesView) {
         mPicturesView = checkNotNull(picturesView, "PicturesView cannot be null");
         mPicturesView.setPresenter(this);
+        mRepository = repository;
     }
 
     @Override
@@ -29,23 +34,16 @@ public class PicturesPresenter implements BasePresenter, PicturesContract.Presen
 
     @Override
     public void loadPictures(boolean forceUpdate) {
-        Picture pic = new Picture();
-        pic.setTitle("uno");
-        pic.setThumbnailUrl("http://placehold.it/150/92c952");
-        Picture pic2 = new Picture();
-        pic2.setTitle("dos");
-        pic2.setThumbnailUrl("http://placehold.it/150/d32776");
-        Picture pic3 = new Picture();
-        pic3.setTitle("tres");
-        pic3.setThumbnailUrl("http://placehold.it/150/56a8c2");
-        Picture pic4 = new Picture();
-        pic4.setTitle("cuatro");
-        pic4.setThumbnailUrl("http://placehold.it/150/5e3a73");
-        ArrayList<Picture> pics = new ArrayList<Picture>();
-        pics.add(pic);
-        pics.add(pic2);
-        pics.add(pic3);
-        pics.add(pic4);
-        mPicturesView.showPictures(pics);
+        mRepository.getPictures(new PictureDataSource.LoadPicturesCallback() {
+            @Override
+            public void onPicturesLoaded(@NonNull List<Picture> pictures) {
+                mPicturesView.showPictures(pictures);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+                mPicturesView.showNoPicture();
+            }
+        });
     }
 }

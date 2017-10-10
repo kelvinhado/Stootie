@@ -43,7 +43,7 @@ public class PictureRemoteDataSource implements PictureDataSource {
     @Override
     public void getPictures(@NonNull final LoadPicturesCallback callback) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("ttp://jsonplaceholder.typicode.com")
+                .baseUrl("http://jsonplaceholder.typicode.com")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
