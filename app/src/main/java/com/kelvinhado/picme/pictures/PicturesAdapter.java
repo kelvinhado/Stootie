@@ -1,13 +1,16 @@
 package com.kelvinhado.picme.pictures;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kelvinhado.picme.R;
 import com.kelvinhado.picme.data.source.Picture;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -24,9 +27,12 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
 
     private ListItemClickListener mListener;
 
-    public PicturesAdapter(List<Picture> pictureList, ListItemClickListener listener) {
+    private Context mContext;
+
+    public PicturesAdapter(Context context, List<Picture> pictureList, ListItemClickListener listener) {
         mDataset = pictureList;
         mListener = listener;
+        mContext = context;
     }
 
     @Override
@@ -48,6 +54,17 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
         return mDataset.size();
     }
 
+    public void swap(List<Picture> list){
+        if (mDataset != null) {
+            mDataset.clear();
+            mDataset.addAll(list);
+        }
+        else {
+            mDataset = list;
+        }
+        notifyDataSetChanged();
+    }
+
     public interface ListItemClickListener {
         void onListItemClicked(int itemPosition);
     }
@@ -56,6 +73,8 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
 
         @BindView(R.id.tv_item_name)
         TextView title;
+        @BindView(R.id.iv_item_thumbnail)
+        ImageView thumbnail;
 
         public PictureViewHolder(View itemView) {
             super(itemView);
@@ -65,6 +84,11 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
 
         void bind(Picture picture) {
             title.setText(picture.getTitle());
+            // downloading and caching images using Picasso
+            Picasso.with(mContext)
+                    .load(picture.getThumbnailUrl())
+                    .resize(50, 50)
+                    .into(thumbnail);
         }
 
         @Override

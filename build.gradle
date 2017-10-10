@@ -27,4 +27,5 @@ ext {
     supportLibraryVersion = '26+'
     guavaVersion = '20.0'
     butterknifeVersion = '8.8.1'
+    picassoVersion = '2.5.2'
 }

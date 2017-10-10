@@ -35,4 +35,24 @@ public class Picture {
     public String getThumbnailUrl() {
         return thumbnailUrl;
     }
+
+    public void setAlbumId(int albumId) {
+        this.albumId = albumId;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
 }
