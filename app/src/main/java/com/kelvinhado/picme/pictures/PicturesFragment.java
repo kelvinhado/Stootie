@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.kelvinhado.picme.R;
 import com.kelvinhado.picme.data.source.Picture;
@@ -28,6 +28,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PicturesFragment extends Fragment implements PicturesContract.View,
         PicturesAdapter.ListItemClickListener, SwipeRefreshLayout.OnRefreshListener {
+
+    private static final String TAG = PicturesFragment.class.getSimpleName();
 
     /**
      * Mvp presenter
@@ -99,14 +101,13 @@ public class PicturesFragment extends Fragment implements PicturesContract.View,
 
     @Override
     public void showLoadingPicturesFailed() {
-        Toast.makeText(getContext(), "unable to load data..", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "unable to load data..");
     }
 
     @Override
     public void onListItemClicked(int itemPosition) {
 
     }
-
     /**
      * Methods called when the user swipe to update the content.
      */

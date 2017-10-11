@@ -1,6 +1,7 @@
 package com.kelvinhado.picme.pictures;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,7 +88,7 @@ public class PicturesAdapter extends RecyclerView.Adapter<PicturesAdapter.Pictur
             // downloading and caching images using Picasso
             Picasso.with(mContext)
                     .load(picture.getThumbnailUrl())
-                    .resize(50, 50)
+                    .placeholder(ContextCompat.getDrawable(mContext, R.drawable.default_place_holder))
                     .into(thumbnail);
         }
 
