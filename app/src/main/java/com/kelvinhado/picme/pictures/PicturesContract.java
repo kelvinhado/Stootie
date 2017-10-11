@@ -2,7 +2,7 @@ package com.kelvinhado.picme.pictures;
 
 import com.kelvinhado.picme.BasePresenter;
 import com.kelvinhado.picme.BaseView;
-import com.kelvinhado.picme.data.source.Picture;
+import com.kelvinhado.picme.data.model.Picture;
 
 import java.util.List;
 

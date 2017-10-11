@@ -8,7 +8,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.kelvinhado.picme.data.source.Picture;
+import com.kelvinhado.picme.data.model.Picture;
 import com.kelvinhado.picme.data.source.PictureDataSource;
 import com.kelvinhado.picme.data.source.local.PicturePersistenceContract.PictureEntry;
 

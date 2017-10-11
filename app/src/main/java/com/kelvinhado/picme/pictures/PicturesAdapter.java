@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kelvinhado.picme.R;
-import com.kelvinhado.picme.data.source.Picture;
+import com.kelvinhado.picme.data.model.Picture;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

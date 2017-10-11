@@ -2,6 +2,8 @@ package com.kelvinhado.picme.data.source;
 
 import android.support.annotation.NonNull;
 
+import com.kelvinhado.picme.data.model.Picture;
+
 import java.util.List;
 
 /**

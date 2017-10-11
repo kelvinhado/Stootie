@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kelvinhado.picme.R;
-import com.kelvinhado.picme.data.source.Picture;
+import com.kelvinhado.picme.data.model.Picture;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.kelvinhado.picme.data.source;
+package com.kelvinhado.picme.data.model;
 
 /**
  * Created by kelvin on 09/10/2017.

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.test.InstrumentationRegistry;
 
-import com.kelvinhado.picme.data.source.Picture;
+import com.kelvinhado.picme.data.model.Picture;
 
 import org.junit.Before;
 import org.junit.Test;

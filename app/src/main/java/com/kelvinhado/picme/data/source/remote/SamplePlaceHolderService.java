@@ -4,7 +4,7 @@ package com.kelvinhado.picme.data.source.remote;
  * Created by kelvin on 10/10/2017.
  */
 
-import com.kelvinhado.picme.data.source.Picture;
+import com.kelvinhado.picme.data.model.Picture;
 
 import java.util.List;
 

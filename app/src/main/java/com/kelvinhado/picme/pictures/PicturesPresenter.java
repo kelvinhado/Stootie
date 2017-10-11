@@ -3,7 +3,7 @@ package com.kelvinhado.picme.pictures;
 import android.support.annotation.NonNull;
 
 import com.kelvinhado.picme.BasePresenter;
-import com.kelvinhado.picme.data.source.Picture;
+import com.kelvinhado.picme.data.model.Picture;
 import com.kelvinhado.picme.data.source.PictureDataSource;
 import com.kelvinhado.picme.data.source.PictureRepository;
 
