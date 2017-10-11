@@ -31,4 +31,7 @@ ext {
     retrofitVersion = '2.3.0'
     rxJavaVersion = '2.0.2'
     rxAndroidVersion = '2.0.1'
+
+    testJUnitVersion = '4.12'
+    testEspressoVersion = '2.2.2'
 }

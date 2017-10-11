@@ -24,9 +24,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
 
     // App's dependencies
     compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
@@ -44,5 +41,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
 
     // Dependencies for Android unit tests
-    testCompile 'junit:junit:4.12'
+    testCompile "junit:junit:$rootProject.testJUnitVersion"
+
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$rootProject.testEspressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
