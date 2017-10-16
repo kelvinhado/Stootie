@@ -64,7 +64,7 @@ public class StootiesAdapter extends RecyclerView.Adapter<StootiesAdapter.Stooti
     }
 
     public interface ListItemClickListener {
-        void onListItemClicked(int itemPosition);
+        void onListItemClicked(String sootId);
     }
 
     class StootieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -93,7 +93,7 @@ public class StootiesAdapter extends RecyclerView.Adapter<StootiesAdapter.Stooti
 
         @Override
         public void onClick(View view) {
-            mListener.onListItemClicked(getAdapterPosition());
+            mListener.onListItemClicked(mDataset.get(getAdapterPosition()).getId());
         }
     }
 

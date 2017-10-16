@@ -113,15 +113,16 @@ public class StootiesFragment extends Fragment implements StootiesContract.View,
         startActivity(intent);
     }
 
-    @Override
-    public void onListItemClicked(int itemPosition) {
-
-    }
     /**
      * Methods called when the user swipe to update the content.
      */
     @Override
     public void onRefresh() {
         mPresenter.requestLoadStooties(true);
+    }
+
+    @Override
+    public void onListItemClicked(String sootId) {
+        mPresenter.requestLoadStootie(sootId);
     }
 }

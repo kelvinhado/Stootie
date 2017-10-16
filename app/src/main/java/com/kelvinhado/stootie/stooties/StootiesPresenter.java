@@ -22,8 +22,8 @@ public class StootiesPresenter implements BasePresenter, StootiesContract.Presen
     private final StootieRepository mRepository;
 
     public StootiesPresenter(@NonNull StootieRepository repository,
-                             @NonNull StootiesContract.View picturesView) {
-        mStootiesView = checkNotNull(picturesView, "PicturesView cannot be null");
+                             @NonNull StootiesContract.View stootiesView) {
+        mStootiesView = checkNotNull(stootiesView, "StootiesView cannot be null");
         mStootiesView.setPresenter(this);
         mRepository = repository;
     }

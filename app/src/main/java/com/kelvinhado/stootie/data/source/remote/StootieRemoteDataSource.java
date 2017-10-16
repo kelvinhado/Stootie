@@ -90,7 +90,7 @@ public class StootieRemoteDataSource implements StootieDataSource {
 
     @Override
     public void getStootie(@NonNull LoadStootieCallback callback) {
-        // TODO
+        callback.onDataNotAvailable();
     }
 
     @Override

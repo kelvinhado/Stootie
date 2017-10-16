@@ -33,5 +33,12 @@ public interface StootieContract {
 
     interface Presenter extends BasePresenter {
 
+        /**
+         * load stootie from the remote datasource
+         * @param stootieId
+         * @param forceUpdate whether the data needs to be reloaded
+         */
+        void requestLoadStootie(String stootieId, boolean forceUpdate);
+
     }
 }
