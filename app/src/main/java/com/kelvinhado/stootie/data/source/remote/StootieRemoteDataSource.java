@@ -2,15 +2,18 @@ package com.kelvinhado.stootie.data.source.remote;
 
 import android.support.annotation.NonNull;
 
-import com.kelvinhado.stootie.data.model.Picture;
+import com.kelvinhado.stootie.data.model.Stootie;
 import com.kelvinhado.stootie.data.source.StootieDataSource;
+import com.kelvinhado.stootie.data.source.remote.pojo.Collection;
 import com.kelvinhado.stootie.data.source.remote.pojo.StootieResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -49,15 +52,32 @@ public class StootieRemoteDataSource implements StootieDataSource {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
-        StootieService service = retrofit.create(StootieService.class);
+        final StootieService service = retrofit.create(StootieService.class);
         Observable<StootieResponse> observable = service.getStooties();
-        //TODO
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Picture>>() {
+                .map(new Function<StootieResponse, List<Stootie>>() {
                     @Override
-                    public void accept(List<Picture> pictureList) throws Exception {
-                        callback.onStootiesLoaded(pictureList);
+                    public List<Stootie> apply(StootieResponse stootieResponse) throws Exception {
+                        List<Stootie> stooties = new ArrayList<>();
+                        for(Collection stoot : stootieResponse.getCollection()) {
+                            Stootie stootie = new Stootie(
+                                    stoot.getTitle(),
+                                    stoot.getUser().getFirstname(),
+                                    stoot.getUser().getLastname(),
+                                    Double.parseDouble(stoot.getUnit_price()),
+                                    stoot.getAddress(),
+                                    stoot.getCreated_at()
+                                    );
+                            stooties.add(stootie);
+                        }
+                        return stooties;
+                    }
+                })
+                .subscribe(new Consumer<List<Stootie>>() {
+                    @Override
+                    public void accept(List<Stootie> stooties) throws Exception {
+                        callback.onStootiesLoaded(stooties);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -65,6 +85,11 @@ public class StootieRemoteDataSource implements StootieDataSource {
                         callback.onDataNotAvailable();
                     }
                 });
+    }
+
+    @Override
+    public void getStootie(@NonNull LoadStootieCallback callback) {
+        // TODO
     }
 
     @Override
