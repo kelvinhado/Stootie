@@ -13,9 +13,9 @@ import com.kelvinhado.stootie.utils.ActivityUtils;
 
 public class StootieActivity extends AppCompatActivity {
 
-    private StootiesFragment mFragment;
+    private StootieFragment mFragment;
 
-    private StootiesPresenter mPresenter;
+    private StootiePresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,19 +24,19 @@ public class StootieActivity extends AppCompatActivity {
 
         // use saved fragment instance if available
         if(savedInstanceState != null) {
-            mFragment = (StootiesFragment) getSupportFragmentManager().getFragment(savedInstanceState, "savedFragment");
+            mFragment = (StootieFragment) getSupportFragmentManager().getFragment(savedInstanceState, "savedFragmentStootie");
         } else {
-            mFragment = (StootiesFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
+            mFragment = (StootieFragment) getSupportFragmentManager().findFragmentById(R.id.content_frame);
         }
 
         if (mFragment == null) {
             // Create the fragment
-            mFragment = StootiesFragment.newInstance();
+            mFragment = StootieFragment.newInstance();
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mFragment, R.id.content_frame);
         }
 
         // add presenter
-        mPresenter = new StootiesPresenter(Injection.providePicturesRepository(this), mFragment);
+        mPresenter = new StootiePresenter(Injection.providePicturesRepository(this), mFragment);
     }
 
 
@@ -44,6 +44,6 @@ public class StootieActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        getSupportFragmentManager().putFragment(outState, "savedFragment", mFragment);
+        getSupportFragmentManager().putFragment(outState, "savedFragmentStootie", mFragment);
     }
 }
