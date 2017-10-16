@@ -6,6 +6,8 @@ package com.kelvinhado.stootie.data.model;
 
 public class Stootie {
 
+    private String id; //id
+
     private String title; // title
 
     private String userFirstName; //user->firstname
@@ -21,7 +23,8 @@ public class Stootie {
     public Stootie() {
     }
 
-    public Stootie(String title, String userFirstName, String userLastName, double price, String address, String creationDate) {
+    public Stootie(String id, String title, String userFirstName, String userLastName, double price, String address, String creationDate) {
+        this.id = id;
         this.title = title;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -29,6 +32,7 @@ public class Stootie {
         this.address = address;
         this.creationDate = creationDate;
     }
+
 
     public String getTitle() {
         return title;
@@ -78,10 +82,19 @@ public class Stootie {
         this.creationDate = creationDate;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Stootie{" +
-                "title='" + title + '\'' +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
                 ", userFirstName='" + userFirstName + '\'' +
                 ", userLastName='" + userLastName + '\'' +
                 ", price=" + price +
@@ -90,3 +103,4 @@ public class Stootie {
                 '}';
     }
 }
+

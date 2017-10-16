@@ -62,6 +62,7 @@ public class StootieRemoteDataSource implements StootieDataSource {
                         List<Stootie> stooties = new ArrayList<>();
                         for(Collection stoot : stootieResponse.getCollection()) {
                             Stootie stootie = new Stootie(
+                                    stoot.getId(),
                                     stoot.getTitle(),
                                     stoot.getUser().getFirstname(),
                                     stoot.getUser().getLastname(),

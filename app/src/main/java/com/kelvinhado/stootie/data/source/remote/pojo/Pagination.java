@@ -1,10 +1,14 @@
 package com.kelvinhado.stootie.data.source.remote.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by kelvin on 12/10/2017.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Pagination {
+
     private String total;
 
     private String per_page;

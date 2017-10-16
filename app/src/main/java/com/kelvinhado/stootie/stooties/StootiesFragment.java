@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kelvinhado.stootie.R;
-import com.kelvinhado.stootie.data.model.Picture;
+import com.kelvinhado.stootie.data.model.Stootie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +37,11 @@ public class StootiesFragment extends Fragment implements StootiesContract.View,
     private StootiesContract.Presenter mPresenter;
 
     /**
-     * List of pictures
+     * List of stooties
      */
-    private List<Picture> mPictureList;
+    private List<Stootie> mStootieList;
 
-    @BindView(R.id.rv_pictures)
+    @BindView(R.id.rv_stooties)
     RecyclerView mRecyclerView;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -59,17 +59,17 @@ public class StootiesFragment extends Fragment implements StootiesContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPictureList = new ArrayList<>();
+        mStootieList = new ArrayList<>();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View mRootView = inflater.inflate(R.layout.fragment_pictures, container, false);
+        View mRootView = inflater.inflate(R.layout.fragment_stooties, container, false);
         ButterKnife.bind(this, mRootView);
 
-        mAdapter = new StootiesAdapter(getContext(), mPictureList, this);
+        mAdapter = new StootiesAdapter(getContext(), mStootieList, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
@@ -94,13 +94,13 @@ public class StootiesFragment extends Fragment implements StootiesContract.View,
     }
 
     @Override
-    public void showPictures(List<Picture> pictures) {
-        mAdapter.swap(pictures);
-        mPictureList = pictures;
+    public void showStooties(List<Stootie> stooties) {
+        mAdapter.swap(stooties);
+        mStootieList = stooties;
     }
 
     @Override
-    public void showLoadingPicturesFailed() {
+    public void showLoadingStootiesFailed() {
         Log.d(TAG, "unable to load data..");
     }
 
@@ -113,6 +113,6 @@ public class StootiesFragment extends Fragment implements StootiesContract.View,
      */
     @Override
     public void onRefresh() {
-        mPresenter.loadPictures(true);
+        mPresenter.loadStooties(true);
     }
 }

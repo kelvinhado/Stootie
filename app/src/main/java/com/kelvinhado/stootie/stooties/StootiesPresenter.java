@@ -3,7 +3,7 @@ package com.kelvinhado.stootie.stooties;
 import android.support.annotation.NonNull;
 
 import com.kelvinhado.stootie.BasePresenter;
-import com.kelvinhado.stootie.data.model.Picture;
+import com.kelvinhado.stootie.data.model.Stootie;
 import com.kelvinhado.stootie.data.source.StootieDataSource;
 import com.kelvinhado.stootie.data.source.StootieRepository;
 
@@ -17,14 +17,14 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class StootiesPresenter implements BasePresenter, StootiesContract.Presenter {
 
-    private final StootiesContract.View mPicturesView;
+    private final StootiesContract.View mStootiesView;
 
     private final StootieRepository mRepository;
 
     public StootiesPresenter(@NonNull StootieRepository repository,
                              @NonNull StootiesContract.View picturesView) {
-        mPicturesView = checkNotNull(picturesView, "PicturesView cannot be null");
-        mPicturesView.setPresenter(this);
+        mStootiesView = checkNotNull(picturesView, "PicturesView cannot be null");
+        mStootiesView.setPresenter(this);
         mRepository = repository;
     }
 
@@ -33,7 +33,7 @@ public class StootiesPresenter implements BasePresenter, StootiesContract.Presen
      */
     @Override
     public void start() {
-        loadPictures(false);
+        loadStooties(false);
     }
 
     /**
@@ -42,8 +42,8 @@ public class StootiesPresenter implements BasePresenter, StootiesContract.Presen
      * @param forceUpdate true to clear cache
      */
     @Override
-    public void loadPictures(boolean forceUpdate) {
-        mPicturesView.setLoadingIndicator(true);
+    public void loadStooties(boolean forceUpdate) {
+        mStootiesView.setLoadingIndicator(true);
         // if a data update is required.
         if (forceUpdate) {
             mRepository.refreshData();
@@ -51,15 +51,15 @@ public class StootiesPresenter implements BasePresenter, StootiesContract.Presen
         // get pictures from the data source.
         mRepository.getStooties(new StootieDataSource.LoadStootiesCallback() {
             @Override
-            public void onPicturesLoaded(@NonNull List<Picture> pictures) {
-                mPicturesView.showPictures(pictures);
-                mPicturesView.setLoadingIndicator(false);
+            public void onStootiesLoaded(@NonNull List<Stootie> stooties) {
+                mStootiesView.showStooties(stooties);
+                mStootiesView.setLoadingIndicator(false);
             }
 
             @Override
             public void onDataNotAvailable() {
-                mPicturesView.showLoadingPicturesFailed();
-                mPicturesView.setLoadingIndicator(false);
+                mStootiesView.showLoadingStootiesFailed();
+                mStootiesView.setLoadingIndicator(false);
             }
         });
     }

@@ -2,7 +2,7 @@ package com.kelvinhado.stootie.stooties;
 
 import com.kelvinhado.stootie.BasePresenter;
 import com.kelvinhado.stootie.BaseView;
-import com.kelvinhado.stootie.data.model.Picture;
+import com.kelvinhado.stootie.data.model.Stootie;
 
 import java.util.List;
 
@@ -21,25 +21,25 @@ public interface StootiesContract {
         void setLoadingIndicator(boolean active);
 
         /**
-         * Shows loaded pictures
-         * @param pictures pictures
+         * Shows loaded stooties
+         * @param stooties stooties
          */
-        void showPictures(List<Picture> pictures);
+        void showStooties(List<Stootie> stooties);
 
         /**
-         * Shows alert in case no pictures are found
+         * Shows alert in case no stooties are found
          */
-        void showLoadingPicturesFailed();
+        void showLoadingStootiesFailed();
 
     }
 
     interface Presenter extends BasePresenter {
 
         /**
-         * request to load pictures
+         * request to load stooties
          * @param forceUpdate true to clear cache
          */
-        void loadPictures(boolean forceUpdate);
+        void loadStooties(boolean forceUpdate);
 
     }
 }

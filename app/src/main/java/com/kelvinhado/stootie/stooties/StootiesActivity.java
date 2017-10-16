@@ -17,7 +17,7 @@ public class StootiesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pictures);
+        setContentView(R.layout.activity_stooties);
 
         // use saved fragment instance if available
         if(savedInstanceState != null) {

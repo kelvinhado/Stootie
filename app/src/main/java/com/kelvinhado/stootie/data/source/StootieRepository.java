@@ -34,7 +34,7 @@ public class StootieRepository implements StootieDataSource {
     /**
      * cache data
      */
-    private Map<Integer, Stootie> mCache;
+    private Map<String, Stootie> mCache;
 
     /**
      * whether the cache need to be reloaded or not
