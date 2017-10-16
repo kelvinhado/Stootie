@@ -33,7 +33,7 @@ public class StootiesPresenter implements BasePresenter, StootiesContract.Presen
      */
     @Override
     public void start() {
-        loadStooties(false);
+        requestLoadStooties(false);
     }
 
     /**
@@ -42,7 +42,7 @@ public class StootiesPresenter implements BasePresenter, StootiesContract.Presen
      * @param forceUpdate true to clear cache
      */
     @Override
-    public void loadStooties(boolean forceUpdate) {
+    public void requestLoadStooties(boolean forceUpdate) {
         mStootiesView.setLoadingIndicator(true);
         // if a data update is required.
         if (forceUpdate) {
@@ -62,5 +62,10 @@ public class StootiesPresenter implements BasePresenter, StootiesContract.Presen
                 mStootiesView.setLoadingIndicator(false);
             }
         });
+    }
+
+    @Override
+    public void requestLoadStootie(String stootieId) {
+        mStootiesView.showStootie(stootieId);
     }
 }

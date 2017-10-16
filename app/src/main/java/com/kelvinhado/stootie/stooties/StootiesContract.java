@@ -31,6 +31,12 @@ public interface StootiesContract {
          */
         void showLoadingStootiesFailed();
 
+        /**
+         * Launch a new activity to display the stootie
+         * @param stootieId id of the stootie
+         */
+        void showStootie(String stootieId);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -39,7 +45,12 @@ public interface StootiesContract {
          * request to load stooties
          * @param forceUpdate true to clear cache
          */
-        void loadStooties(boolean forceUpdate);
+        void requestLoadStooties(boolean forceUpdate);
 
+        /**
+         * request to show a particular stootie
+         * @param stootieId stooties id
+         */
+        void requestLoadStootie(String stootieId);
     }
 }

@@ -1,5 +1,6 @@
 package com.kelvinhado.stootie.stooties;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.kelvinhado.stootie.R;
 import com.kelvinhado.stootie.data.model.Stootie;
+import com.kelvinhado.stootie.stootie.StootieActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +107,13 @@ public class StootiesFragment extends Fragment implements StootiesContract.View,
     }
 
     @Override
+    public void showStootie(String stootieId) {
+        Intent intent = new Intent(getActivity(), StootieActivity.class);
+        intent.putExtra(Intent.EXTRA_UID, stootieId);
+        startActivity(intent);
+    }
+
+    @Override
     public void onListItemClicked(int itemPosition) {
 
     }
@@ -113,6 +122,6 @@ public class StootiesFragment extends Fragment implements StootiesContract.View,
      */
     @Override
     public void onRefresh() {
-        mPresenter.loadStooties(true);
+        mPresenter.requestLoadStooties(true);
     }
 }
