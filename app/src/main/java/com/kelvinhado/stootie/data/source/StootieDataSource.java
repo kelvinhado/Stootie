@@ -20,9 +20,10 @@ public interface StootieDataSource {
 
     /**
      * Gets the stooties from the data source
+     * @param stootieId stoot's id
      * @param callback callback
      */
-    void getStootie(@NonNull LoadStootieCallback callback);
+    void getStootie(String stootieId, @NonNull LoadStootieCallback callback);
 
     /**
      * Methods called to indicate that data should be updated

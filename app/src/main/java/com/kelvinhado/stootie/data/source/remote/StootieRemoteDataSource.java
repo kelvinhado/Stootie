@@ -89,8 +89,46 @@ public class StootieRemoteDataSource implements StootieDataSource {
     }
 
     @Override
-    public void getStootie(@NonNull LoadStootieCallback callback) {
-        callback.onDataNotAvailable();
+    public void getStootie(String stootieId, @NonNull LoadStootieCallback callback) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://bff-mobile-dev.stootie.com/")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        final StootieService service = retrofit.create(StootieService.class);
+        Observable<Stootie> observable = service.getStootie(stootieId);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<StootieResponse, Stootie>() {
+                    @Override
+                    public Stootie apply(StootieResponse stootieResponse) throws Exception {
+                        List<Stootie> stooties = new ArrayList<>();
+                        for(Collection stoot : stootieResponse.getCollection()) {
+                            Stootie stootie = new Stootie(
+                                    stoot.getId(),
+                                    stoot.getTitle(),
+                                    stoot.getUser().getFirstname(),
+                                    stoot.getUser().getLastname(),
+                                    Double.parseDouble(stoot.getUnit_price()),
+                                    stoot.getAddress(),
+                                    stoot.getCreated_at()
+                            );
+                            stooties.add(stootie);
+                        }
+                        return stooties;
+                    }
+                })
+                .subscribe(new Consumer<List<Stootie>>() {
+                    @Override
+                    public void accept(List<Stootie> stooties) throws Exception {
+                        callback.onStootiesLoaded(stooties);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        callback.onDataNotAvailable();
+                    }
+                });
     }
 
     @Override

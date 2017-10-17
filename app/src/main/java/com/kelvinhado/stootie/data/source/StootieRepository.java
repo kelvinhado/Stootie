@@ -78,8 +78,8 @@ public class StootieRepository implements StootieDataSource {
     }
 
     @Override
-    public void getStootie(@NonNull final LoadStootieCallback callback) {
-        mRemoteDataSource.getStootie(new LoadStootieCallback() {
+    public void getStootie(String stootieId, @NonNull final LoadStootieCallback callback) {
+        mRemoteDataSource.getStootie(stootieId, new LoadStootieCallback() {
             @Override
             public void onStootieLoaded(@NonNull Stootie stootie) {
                 callback.onStootieLoaded(stootie);
