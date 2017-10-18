@@ -10,7 +10,11 @@ import android.widget.TextView;
 import com.kelvinhado.stootie.R;
 import com.kelvinhado.stootie.data.model.Stootie;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class StootiesAdapter extends RecyclerView.Adapter<StootiesAdapter.StootieViewHolder> {
 
-        private List<Stootie> mDataset;
+    private List<Stootie> mDataset;
 
     private ListItemClickListener mListener;
 
@@ -52,12 +56,11 @@ public class StootiesAdapter extends RecyclerView.Adapter<StootiesAdapter.Stooti
         return mDataset.size();
     }
 
-    public void swap(List<Stootie> list){
+    public void swap(List<Stootie> list) {
         if (mDataset != null) {
             mDataset.clear();
             mDataset.addAll(list);
-        }
-        else {
+        } else {
             mDataset = list;
         }
         notifyDataSetChanged();
@@ -69,12 +72,18 @@ public class StootiesAdapter extends RecyclerView.Adapter<StootiesAdapter.Stooti
 
     class StootieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.tv_item_title)           TextView title;
-        @BindView(R.id.tv_item_user_firstname)  TextView firstname;
-        @BindView(R.id.tv_item_user_lastname)   TextView lastname;
-        @BindView(R.id.tv_item_price)           TextView price;
-        @BindView(R.id.tv_item_address)         TextView address;
-        @BindView(R.id.tv_item_date)            TextView date;
+        @BindView(R.id.tv_item_title)
+        TextView title;
+        @BindView(R.id.tv_item_user_firstname)
+        TextView firstname;
+        @BindView(R.id.tv_item_user_lastname)
+        TextView lastname;
+        @BindView(R.id.tv_item_price)
+        TextView price;
+        @BindView(R.id.tv_item_address)
+        TextView address;
+        @BindView(R.id.tv_item_date)
+        TextView date;
 
         public StootieViewHolder(View itemView) {
             super(itemView);
@@ -85,15 +94,35 @@ public class StootiesAdapter extends RecyclerView.Adapter<StootiesAdapter.Stooti
         void bind(Stootie stootie) {
             title.setText(stootie.getTitle());
             firstname.setText(stootie.getUserFirstName());
-            lastname.setText(stootie.getUserLastName());
-            price.setText(Double.toString(stootie.getPrice()));
+            lastname.setText(formatLastName(stootie.getUserLastName()));
+            price.setText(formatPrice(stootie.getPrice()));
             address.setText(stootie.getAddress());
-            date.setText(stootie.getCreationDate());
+            date.setText(formatDate(stootie.getCreationDate()));
         }
 
         @Override
         public void onClick(View view) {
             mListener.onListItemClicked(mDataset.get(getAdapterPosition()).getId());
+        }
+
+        private String formatPrice(Double price) {
+            return price != 0L ? Double.toString(price) + mContext.getString(R.string.local_money) : "";
+        }
+
+        private String formatDate(String date) {
+            SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault());
+            SimpleDateFormat outFormat = new SimpleDateFormat("EEE. MMM", Locale.getDefault());
+            try {
+                Date result =  inFormat.parse(date);
+                return outFormat.format(result);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return "";
+            }
+        }
+
+        private String formatLastName(String lastName) {
+            return lastName.substring(0, 1) + ".";
         }
     }
 
