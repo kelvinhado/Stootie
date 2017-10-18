@@ -32,11 +32,11 @@ public class StootiePresenter implements BasePresenter, StootieContract.Presente
     
     @Override
     public void start() {
-        requestLoadStootie(mStootieId, false);
+        requestLoadStootie(false);
     }
 
     @Override
-    public void requestLoadStootie(String stootieId, boolean forceUpdate) {
+    public void requestLoadStootie(boolean forceUpdate) {
         mStootieView.setLoadingIndicator(true);
         // if a data update is required.
         if (forceUpdate) {

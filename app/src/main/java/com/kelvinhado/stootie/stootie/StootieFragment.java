@@ -3,6 +3,7 @@ package com.kelvinhado.stootie.stootie;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Created by kelvin on 16/10/2017.
  */
 
-public class StootieFragment extends Fragment implements StootieContract.View {
+public class StootieFragment extends Fragment implements StootieContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = StootieFragment.class.getSimpleName();
 
@@ -43,6 +44,8 @@ public class StootieFragment extends Fragment implements StootieContract.View {
     TextView address;
     @BindView(R.id.tv_item_date)
     TextView date;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     public StootieFragment() {
         // Requires empty public constructor
@@ -67,13 +70,14 @@ public class StootieFragment extends Fragment implements StootieContract.View {
 
         //init views
         mPresenter.start();
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         return mRootView;
     }
 
 
     @Override
     public void setLoadingIndicator(boolean active) {
-
+        mSwipeRefreshLayout.setRefreshing(active);
     }
 
     @Override
@@ -94,5 +98,10 @@ public class StootieFragment extends Fragment implements StootieContract.View {
     @Override
     public void setPresenter(StootieContract.Presenter presenter) {
         this.mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void onRefresh() {
+        mPresenter.requestLoadStootie(true);
     }
 }
