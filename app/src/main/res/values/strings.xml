@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Stootie</string>
     <string name="local_money">€</string>
+    <string name="money_free">Gratuit</string>
 </resources>

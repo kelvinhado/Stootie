@@ -14,15 +14,20 @@
 
         <TextView
             android:id="@+id/tv_item_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="This is the title" />
+            tools:text="This is the title"
+            app:layout_constraintRight_toLeftOf="@+id/tv_item_price"
+            android:layout_marginRight="16dp"
+            app:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
             android:id="@+id/tv_item_user_firstname"
@@ -67,6 +72,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:maxLines="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_title"
             tools:text="12 rue des lilas de l'île du vieux port" />
@@ -78,6 +84,7 @@
             android:layout_marginRight="16dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_item_user_firstname"
             app:layout_constraintRight_toRightOf="parent"
-            tools:text="14 novembre 2020" />
+            tools:text="14 novembre 2020"
+            android:layout_marginEnd="16dp" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

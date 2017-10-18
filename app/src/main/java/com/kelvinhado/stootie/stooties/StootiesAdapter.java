@@ -106,12 +106,13 @@ public class StootiesAdapter extends RecyclerView.Adapter<StootiesAdapter.Stooti
         }
 
         private String formatPrice(Double price) {
-            return price != 0L ? Double.toString(price) + mContext.getString(R.string.local_money) : "";
+            return price != 0L ? Double.toString(price) + mContext.getString(R.string.local_money)
+                    : mContext.getString(R.string.money_free);
         }
 
         private String formatDate(String date) {
             SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault());
-            SimpleDateFormat outFormat = new SimpleDateFormat("EEE. MMM", Locale.getDefault());
+            SimpleDateFormat outFormat = new SimpleDateFormat("EEEEEEEEE dd MMM", Locale.getDefault());
             try {
                 Date result =  inFormat.parse(date);
                 return outFormat.format(result);
