@@ -19,16 +19,20 @@ public class StootiePresenter implements BasePresenter, StootieContract.Presente
 
     private final StootieRepository mRepository;
 
-    public StootiePresenter(@NonNull StootieRepository repository,
-                             @NonNull StootieContract.View stootieView) {
+    private String mStootieId;
+
+    public StootiePresenter(String stootieId,
+                            @NonNull StootieRepository repository,
+                            @NonNull StootieContract.View stootieView) {
         mStootieView = checkNotNull(stootieView, "StootieView cannot be null");
         mStootieView.setPresenter(this);
+        mStootieId = stootieId;
         mRepository = repository;
     }
     
     @Override
     public void start() {
-
+        requestLoadStootie(mStootieId, false);
     }
 
     @Override
@@ -39,7 +43,7 @@ public class StootiePresenter implements BasePresenter, StootieContract.Presente
             mRepository.refreshData();
         }
         // get pictures from the data source.
-        mRepository.getStootie(, new StootieDataSource.LoadStootieCallback() {
+        mRepository.getStootie(mStootieId, new StootieDataSource.LoadStootieCallback() {
             @Override
             public void onStootieLoaded(@NonNull Stootie stootie) {
                 mStootieView.setLoadingIndicator(false);
@@ -51,6 +55,6 @@ public class StootiePresenter implements BasePresenter, StootieContract.Presente
                 mStootieView.showLoadingStootieFailed();
                 mStootieView.setLoadingIndicator(false);
             }
-        }, );
+        });
     }
 }

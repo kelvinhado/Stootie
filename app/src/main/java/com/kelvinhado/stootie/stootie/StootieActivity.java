@@ -39,8 +39,7 @@ public class StootieActivity extends AppCompatActivity {
         }
 
         // add presenter
-        mPresenter = new StootiePresenter(Injection.providePicturesRepository(this), mFragment);
-        mPresenter.requestLoadStootie(stootieId, false);
+        mPresenter = new StootiePresenter(stootieId, Injection.providePicturesRepository(this), mFragment);
 
     }
 
