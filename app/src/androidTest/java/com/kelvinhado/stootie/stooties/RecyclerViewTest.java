@@ -1,20 +1,21 @@
 package com.kelvinhado.stootie.stooties;
 
-import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.kelvinhado.stootie.R;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 /**
  * Created by kelvin on 11/10/2017.
@@ -31,12 +32,12 @@ public class RecyclerViewTest {
 
     @Test
     public void check_recycler_view_is_present() {
-        try {
-            onView(withId(R.id.rv_pictures)).perform(click());
-            Assert.assertTrue("RecyclerView is present in the hierarchy", true);
+        onView(withId(R.id.rv_stooties)).check(matches(isDisplayed()));
+    }
 
-        } catch (NoMatchingViewException e) {
-            Assert.assertTrue("RecyclerView is present in the hierarchy", false);
-        }
+    @Test
+    public void check_recycler_view_click() {
+        onView(withText("Cours d'italien")).perform(click());
+        onView(withId(R.id.tv_item_title)).check(matches(withText("Cours d'italien")));
     }
 }
