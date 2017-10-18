@@ -6,11 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kelvinhado.stootie.R;
 import com.kelvinhado.stootie.data.model.Stootie;
+import com.kelvinhado.stootie.utils.StringFormatter;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -28,6 +31,18 @@ public class StootieFragment extends Fragment implements StootieContract.View {
      */
     private StootieContract.Presenter mPresenter;
 
+    @BindView(R.id.tv_item_title)
+    TextView title;
+    @BindView(R.id.tv_item_user_firstname)
+    TextView firstname;
+    @BindView(R.id.tv_item_user_lastname)
+    TextView lastname;
+    @BindView(R.id.tv_item_price)
+    TextView price;
+    @BindView(R.id.tv_item_address)
+    TextView address;
+    @BindView(R.id.tv_item_date)
+    TextView date;
 
     public StootieFragment() {
         // Requires empty public constructor
@@ -63,7 +78,12 @@ public class StootieFragment extends Fragment implements StootieContract.View {
 
     @Override
     public void showStootie(Stootie stootie) {
-        Toast.makeText(getActivity(), stootie.toString(), Toast.LENGTH_SHORT).show();
+        title.setText(stootie.getTitle());
+        firstname.setText(stootie.getUserFirstName());
+        lastname.setText(StringFormatter.formatLastName(stootie.getUserLastName()));
+        price.setText(StringFormatter.formatPrice(getContext(), stootie.getPrice()));
+        address.setText(stootie.getAddress());
+        date.setText(StringFormatter.formatDate(stootie.getCreationDate()));
     }
 
     @Override

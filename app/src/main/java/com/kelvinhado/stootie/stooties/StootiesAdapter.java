@@ -9,12 +9,9 @@ import android.widget.TextView;
 
 import com.kelvinhado.stootie.R;
 import com.kelvinhado.stootie.data.model.Stootie;
+import com.kelvinhado.stootie.utils.StringFormatter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,36 +91,15 @@ public class StootiesAdapter extends RecyclerView.Adapter<StootiesAdapter.Stooti
         void bind(Stootie stootie) {
             title.setText(stootie.getTitle());
             firstname.setText(stootie.getUserFirstName());
-            lastname.setText(formatLastName(stootie.getUserLastName()));
-            price.setText(formatPrice(stootie.getPrice()));
+            lastname.setText(StringFormatter.formatLastName(stootie.getUserLastName()));
+            price.setText(StringFormatter.formatPrice(mContext, stootie.getPrice()));
             address.setText(stootie.getAddress());
-            date.setText(formatDate(stootie.getCreationDate()));
+            date.setText(StringFormatter.formatDate(stootie.getCreationDate()));
         }
 
         @Override
         public void onClick(View view) {
             mListener.onListItemClicked(mDataset.get(getAdapterPosition()).getId());
-        }
-
-        private String formatPrice(Double price) {
-            return price != 0L ? Double.toString(price) + mContext.getString(R.string.local_money)
-                    : mContext.getString(R.string.money_free);
-        }
-
-        private String formatDate(String date) {
-            SimpleDateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault());
-            SimpleDateFormat outFormat = new SimpleDateFormat("EEEEEEEEE dd MMM", Locale.getDefault());
-            try {
-                Date result =  inFormat.parse(date);
-                return outFormat.format(result);
-            } catch (ParseException e) {
-                e.printStackTrace();
-                return "";
-            }
-        }
-
-        private String formatLastName(String lastName) {
-            return lastName.substring(0, 1) + ".";
         }
     }
 
